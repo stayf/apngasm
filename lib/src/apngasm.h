@@ -54,15 +54,6 @@ namespace apngasm {
 		~APNGAsm(void);
 
         /**
-         * @brief Adds a frame from a PNG file or frames from a APNG file to the frame vector.
-         * @param filePath The relative or absolute path to an image file.
-         * @param delayNum The delay numerator for this frame (defaults to DEFAULT_FRAME_NUMERATOR).
-         * @param delayDen The delay denominator for this frame (defaults to DEFAULT_FRAME_DENMINATOR).
-         * @return The [new] number of frames/the number of this frame on the frame vector.
-         */
-		size_t addFrame(const std::string &filePath, unsigned delayNum = DEFAULT_FRAME_NUMERATOR, unsigned delayDen = DEFAULT_FRAME_DENOMINATOR);
-
-        /**
 		 * @brief Adds an APNGFrame object to the frame vector.
          * @param frame the APNGFrame object to be added
          * @return The [new] number of frames/the number of this frame on the frame vector.

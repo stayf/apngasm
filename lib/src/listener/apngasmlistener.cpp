@@ -46,7 +46,7 @@ void APNGAsmListener::onPostSave(const std::string &filePath) const {
 // Return output path.
 const std::string APNGAsmListener::onCreatePngPath(const std::string &outputDir,
                                                    int index) const {
-  const char separator = std::filesystem::path::preferred_separator;
+  const char separator = '/';
   const std::string separatorStr =
       (outputDir.empty() || *outputDir.rbegin() == separator)
           ? ""
