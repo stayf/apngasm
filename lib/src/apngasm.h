@@ -115,34 +115,6 @@ namespace apngasm {
 		bool savePNGs(const std::string& outputDir) const;
 #endif
 
-#ifdef APNG_SPECS_SUPPORTED
-        /**
-         * @brief Loads an animation spec from JSON or XML.
-		 *		Loaded frames are added to the end of the frame vector.
-		 *		For more details on animation specs see:
-		 *			https://github.com/Genshin/PhantomStandards
-         * @param filePath The path to the spec .xml or .json file.
-         * @return A frame vector with the loaded frames.
-         */
-		const std::vector<APNGFrame>& loadAnimationSpec(const std::string &filePath);
-        
-        /**
-         * @brief Saves a JSON animation spec file.
-         * @param filePath Path to save the file to.
-         * @param imageDir Directory where frame files are to be saved if not the same path as the animation spec.
-         * @return Returns true if save was successful.
-         */
-		bool saveJSON(const std::string& outputPath, const std::string& imageDir="") const;
-        
-        /**
-         * @brief Saves an XML animation spec file.
-         * @param filePath Path to save the file to.
-         * @param imageDir Directory where frame files are to be saved if not the same path as the animation spec.
-         * @return Returns true if save was successful.
-         */
-		bool saveXML(const std::string& outputPath, const std::string& imageDir="") const;
-#endif
-
         /**
          * @brief Sets a listener.
          * @param listener A pointer to the listener object. If the argument is NULL a default APNGAsmListener will be created and assigned.

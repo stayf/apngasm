@@ -43,6 +43,8 @@ public:
   virtual const std::string onCreatePngPath(const std::string &outputDir,
                                             int index) const = 0;
 
+  virtual bool checkHasBreak() const = 0;
+
 }; // class IAPNGAsmListener
 
 class APNGASM_DECLSPEC APNGAsmListener : public IAPNGAsmListener {
@@ -74,6 +76,8 @@ public:
   // Return output path.
   const std::string onCreatePngPath(const std::string &outputDir,
                                     int index) const;
+
+  bool checkHasBreak() const;
 
 }; // class APNGAsmListener
 

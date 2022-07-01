@@ -149,49 +149,6 @@ namespace apngasm {
     return *this;
   }
 
-#ifdef APNG_SPECS_SUPPORTED
-  //Loads an animation spec from JSON or XML
-  //Returns a frame vector with the loaded frames
-  //Loaded frames are added to the end of the frame vector
-  const std::vector<APNGFrame>& APNGAsm::loadAnimationSpec(const std::string &filePath)
-  {
-    spec::SpecReader reader(this);
-
-    if( !reader.read(filePath) )
-    {
-      // read failed.
-    }
-
-    return _frames;
-  }
-
-  // Save json file.
-  bool APNGAsm::saveJSON(const std::string& outputPath, const std::string& imageDir) const
-  {
-    bool result = false;
-    if( _listener->onPreSave(outputPath) )
-    {
-      spec::SpecWriter writer(this, _listener);
-      if( (result = writer.writeJSON(outputPath, imageDir)) )
-        _listener->onPostSave(outputPath);
-    }
-    return result;
-  }
-
-  // Save xml file.
-  bool APNGAsm::saveXML(const std::string& outputPath, const std::string& imageDir) const
-  {
-    bool result = false;
-    if( _listener->onPreSave(outputPath) )
-    {
-      spec::SpecWriter writer(this, _listener);
-      if( (result = writer.writeXML(outputPath, imageDir)) )
-        _listener->onPostSave(outputPath);
-    }
-    return result;
-  }
-#endif
-
   // Set APNGAsmListener.
   // If argument is NULL, set default APNGAsmListener.
   void APNGAsm::setAPNGAsmListener(listener::IAPNGAsmListener* listener)
@@ -234,14 +191,26 @@ namespace apngasm {
 
     unsigned char coltype = findCommonType();
 
+    if( _listener->checkHasBreak() )
+      return false;
+
     if (upconvertToCommonType(coltype))
       return false;
 
     dirtyTransparencyOptimization(coltype);
 
+    if( _listener->checkHasBreak() )
+      return false;
+
     coltype = downconvertOptimizations(coltype, false, false);
 
+    if( _listener->checkHasBreak() )
+      return false;
+
     duplicateFramesOptimization(coltype, (_skipFirst ? 1 : 0));
+
+    if( _listener->checkHasBreak() )
+      return false;
 
     if( !save(outputPath, coltype, (_skipFirst ? 1 : 0), _loops) )
       return false;

@@ -42,6 +42,10 @@ void APNGAsmListener::onPostSave(const std::string &filePath) const {
   // nop
 }
 
+bool APNGAsmListener::checkHasBreak() const {
+  return false;
+}
+
 // Called when create output path of png file.
 // Return output path.
 const std::string APNGAsmListener::onCreatePngPath(const std::string &outputDir,
