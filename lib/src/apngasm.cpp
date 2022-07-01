@@ -191,26 +191,14 @@ namespace apngasm {
 
     unsigned char coltype = findCommonType();
 
-    if( _listener->checkHasBreak() )
-      return false;
-
     if (upconvertToCommonType(coltype))
       return false;
 
     dirtyTransparencyOptimization(coltype);
 
-    if( _listener->checkHasBreak() )
-      return false;
-
     coltype = downconvertOptimizations(coltype, false, false);
 
-    if( _listener->checkHasBreak() )
-      return false;
-
     duplicateFramesOptimization(coltype, (_skipFirst ? 1 : 0));
-
-    if( _listener->checkHasBreak() )
-      return false;
 
     if( !save(outputPath, coltype, (_skipFirst ? 1 : 0), _loops) )
       return false;
@@ -1274,6 +1262,9 @@ namespace apngasm {
 
       for (size_t n = first; n < _frames.size()-1; ++n)
       {
+        if( _listener->checkHasBreak() )
+          break;
+          
         unsigned int op_min;
         int          op_best;
 
